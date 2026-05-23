@@ -44,14 +44,13 @@ export const signup = async (req, res) => {
       // after CR:
       // Persist user first, then issue auth cookie
       const savedUser = await newUser.save();
-      const token = generateToken(savedUser._id, res);
+      generateToken(savedUser._id, res);
 
       res.status(201).json({
         _id: newUser._id,
         fullName: newUser.fullName,
         email: newUser.email,
         profilePic: newUser.profilePic,
-        token,
       });
 
       try {
@@ -83,14 +82,13 @@ export const login = async (req, res) => {
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
 
-    const token = generateToken(user._id, res);
+    generateToken(user._id, res);
 
     res.status(200).json({
       _id: user._id,
       fullName: user.fullName,
       email: user.email,
       profilePic: user.profilePic,
-      token,
     });
   } catch (error) {
     console.error("Error in login controller:", error);
@@ -99,7 +97,7 @@ export const login = async (req, res) => {
 };
 
 export const logout = (_, res) => {
-  // Token is stored on frontend (localStorage), just confirm logout
+  res.cookie("jwt", "", { maxAge: 0 });
   res.status(200).json({ message: "Logged out successfully" });
 };
 

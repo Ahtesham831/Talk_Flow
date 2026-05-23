@@ -33,8 +33,6 @@ export const useAuthStore = create((set, get) => ({
     set({ isSigningUp: true });
     try {
       const res = await axiosInstance.post("/auth/signup", data);
-      // Save token to localStorage
-      if (res.data.token) localStorage.setItem("jwt_token", res.data.token);
       set({ authUser: res.data });
 
       toast.success("Account created successfully!");
@@ -50,8 +48,6 @@ export const useAuthStore = create((set, get) => ({
     set({ isLoggingIn: true });
     try {
       const res = await axiosInstance.post("/auth/login", data);
-      // Save token to localStorage
-      if (res.data.token) localStorage.setItem("jwt_token", res.data.token);
       set({ authUser: res.data });
 
       toast.success("Logged in successfully");
@@ -67,8 +63,6 @@ export const useAuthStore = create((set, get) => ({
   logout: async () => {
     try {
       await axiosInstance.post("/auth/logout");
-      // Remove token from localStorage
-      localStorage.removeItem("jwt_token");
       set({ authUser: null });
       toast.success("Logged out successfully");
       get().disconnectSocket();
@@ -93,10 +87,8 @@ export const useAuthStore = create((set, get) => ({
     const { authUser } = get();
     if (!authUser || get().socket?.connected) return;
 
-    const token = localStorage.getItem("jwt_token");
-
     const socket = io(BASE_URL, {
-      auth: { token }, // send token via socket handshake auth (not cookies)
+      withCredentials: true, // this ensures cookies are sent with the connection
     });
 
     socket.connect();

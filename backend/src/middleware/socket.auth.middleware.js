@@ -4,8 +4,11 @@ import { ENV } from "../lib/env.js";
 
 export const socketAuthMiddleware = async (socket, next) => {
   try {
-    // Read token from socket handshake auth object (sent by frontend)
-    const token = socket.handshake.auth?.token;
+    // extract token from http-only cookies
+    const token = socket.handshake.headers.cookie
+      ?.split("; ")
+      .find((row) => row.startsWith("jwt="))
+      ?.split("=")[1];
 
     if (!token) {
       console.log("Socket connection rejected: No token provided");
@@ -19,7 +22,7 @@ export const socketAuthMiddleware = async (socket, next) => {
       return next(new Error("Unauthorized - Invalid Token"));
     }
 
-    // find the user from db
+    // find the user fromdb
     const user = await User.findById(decoded.userId).select("-password");
     if (!user) {
       console.log("Socket connection rejected: User not found");
