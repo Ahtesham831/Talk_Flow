@@ -1,9 +1,8 @@
 # 💬 TalkFlow
 
 TalkFlow is a premium, real-time messaging application designed with a stunning, high-contrast Light Mode user interface. It combines high-speed WebSockets, cloud-based media sharing, transactional emails, and advanced security layers to deliver a modern, production-grade chatting experience.
-
-🔗 **GitHub Repository**: [Ahtesham831/Talk_Flow](https://github.com/Ahtesham831/Talk_Flow)  
-🔗 **Live Deployment**: [TalkFlow Live](https://talk-flow-ch.vercel.app) *(or add your custom Vercel/Render link here!)*
+ 
+🔗 **Live Deployment**: [TalkFlow Live](https://talk-flow-ud.vercel.app/)
 
 ---
 
