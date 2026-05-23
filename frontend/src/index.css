@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@property --border-angle {
+  inherits: false;
+  initial-value: 0deg;
+  syntax: "<angle>";
+}
+
+.input {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #1e293b !important;
+  border-radius: 0.5rem !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  padding-left: 2.5rem !important;
+  padding-right: 1rem !important;
+  width: 100% !important;
+  transition: all 0.2s ease-in-out !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.input::placeholder {
+  color: #94a3b8 !important;
+}
+
+.input:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+  outline: 2px solid transparent !important;
+  outline-offset: 2px !important;
+}
+
+.auth-input-icon {
+  @apply absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 size-5 z-10;
+}
+
+.auth-input-label {
+  @apply block text-sm font-semibold text-slate-600 mb-2;
+}
+
+.auth-badge {
+  @apply inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full bg-blue-50 text-blue-600;
+}
+
+.auth-btn {
+  @apply w-full bg-[#3b82f6] text-white rounded-lg py-2.5 font-semibold shadow-md shadow-blue-500/10 hover:bg-[#2563eb] transition-all;
+}
+
+.auth-link {
+  @apply px-4 py-2 inline-block bg-blue-50 rounded-lg text-[#3b82f6]
+  hover:text-[#1d4ed8] text-sm transition-all font-semibold;
+}
