@@ -11,15 +11,7 @@ export const generateToken = (userId, res) => {
     expiresIn: "7d",
   });
 
-  res.cookie("jwt", token, {
-    maxAge: 7 * 24 * 60 * 60 * 1000, // MS
-    httpOnly: true, // prevent XSS attacks: cross-site scripting
-    sameSite: ENV.NODE_ENV === "production" ? "none" : "strict", // "none" required for cross-origin (Vercel + Render)
-    secure: ENV.NODE_ENV === "production" ? true : false, // must be true when sameSite is "none"
-  });
-
+  // Return token in response body for cross-origin (Vercel + Render)
+  // The frontend will store it in localStorage and send via Authorization header
   return token;
 };
-
-// http://localhost
-// https://dsmakmk.com
